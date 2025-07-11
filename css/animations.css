@@ -109,21 +109,49 @@ body::before {
     color: #00d4ff;
 }
 
-/* Animaciones específicas para CV */
-.skills-panel.visible {
+/* === AJUSTES PARA EL NUEVO LAYOUT === */
+/* Animaciones específicas para CV - Versión optimizada */
+.skills-panel {
     animation: fadeInLeft 0.8s ease-out forwards;
 }
 
-.timeline.visible {
+.experience-panel {
     animation: fadeInRight 0.8s ease-out forwards;
 }
 
 @keyframes fadeInLeft {
-    from { opacity: 0; transform: translateX(-50px); }
-    to { opacity: 1; transform: translateX(0); }
+    from {
+        opacity: 0;
+        transform: translateX(-30px); /* Más suave que 50px */
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 @keyframes fadeInRight {
-    from { opacity: 0; transform: translateX(50px); }
-    to { opacity: 1; transform: translateX(0); }
+    from {
+        opacity: 0;
+        transform: translateX(30px); /* Más suave que 50px */
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Asegurar que las animaciones no interfieran con el sticky */
+.skills-panel {
+    animation-delay: 0.3s; /* Pequeño retardo para efecto escalonado */
+}
+
+/* Responsive: Desactiva animaciones en móviles para mejor rendimiento */
+@media (max-width: 768px) {
+    .skills-panel,
+    .experience-panel {
+        animation: none !important;
+        opacity: 1;
+        transform: none !important;
+    }
 }

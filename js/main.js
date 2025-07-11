@@ -37,25 +37,34 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Animaciones al hacer scroll
+    // Animaciones al hacer scroll (optimizado para el nuevo layout)
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                // Detener observación después de activar
+
+                // Animación adicional para paneles del CV
+                if (entry.target.id === 'cv') {
+                    const skillsPanel = entry.target.querySelector('.skills-panel');
+                    const experiencePanel = entry.target.querySelector('.experience-panel');
+
+                    skillsPanel.style.animation = 'fadeInLeft 0.8s ease-out forwards';
+                    experiencePanel.style.animation = 'fadeInRight 0.8s ease-out forwards';
+                }
+
                 observer.unobserve(entry.target);
             }
         });
     }, {
         threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px' // Activa la animación 50px antes
+        rootMargin: '0px 0px -100px 0px' // Aumenté el margen para activar antes
     });
 
     document.querySelectorAll('.hidden-section').forEach(section => {
         observer.observe(section);
     });
 
-    // Timeline dinámico (versión mejorada)
+    // Timeline dinámico (versión mejorada para el nuevo layout)
     const timelineData = [
         {
             date: "Junio 2023 - Mayo 2025",
@@ -88,9 +97,13 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     const timeline = document.querySelector('.timeline');
+
+    // Limpiar timeline existente (por si hay contenido de ejemplo)
+    timeline.innerHTML = '';
+
     timelineData.forEach((item, index) => {
         const timelineItem = document.createElement('div');
-        timelineItem.className = `timeline-item`;
+        timelineItem.className = `timeline-item ${index % 2 === 0 ? 'left' : 'right'}`;
 
         const bulletsHTML = item.bullets.map(bullet =>
             `<li>${bullet}</li>`
@@ -106,4 +119,15 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         timeline.appendChild(timelineItem);
     });
+
+    // Ajuste para el nuevo layout: Centrar línea del timeline
+    setTimeout(() => {
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        timelineItems.forEach(item => {
+            const content = item.querySelector('.timeline-content');
+            content.style.marginLeft = 'auto';
+            content.style.marginRight = 'auto';
+            content.style.maxWidth = '90%';
+        });
+    }, 100);
 });

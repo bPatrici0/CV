@@ -1,10 +1,10 @@
 :root {
-    --primary: #6a11cb;       /* Púrpura eléctrico */
-    --secondary: #2575fc;     /* Azul brillante */
-    --dark-bg: #0f0c29;      /* Fondo oscuro */
-    --card-bg: #1a1a2e;      /* Tarjetas */
-    --text-light: #ffffff;   /* Texto blanco */
-    --accent: #00d4ff;       /* Cyan neón */
+    --primary: #6a11cb;
+    --secondary: #2575fc;
+    --dark-bg: #0f0c29;
+    --card-bg: #1a1a2e;
+    --text-light: #ffffff;
+    --accent: #00d4ff;
 }
 
 body {
@@ -82,13 +82,33 @@ section {
     display: inline-block;
 }
 
+/* Layout CV */
+.cv-container {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.skills-panel {
+    flex: 1;
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+    align-self: flex-start;
+}
+
+.experience-panel {
+    flex: 2;
+}
+
 /* Timeline */
 .timeline {
-    flex: 2;
     position: relative;
     padding: 20px 0;
-    max-width: 800px;
-    margin: 0 auto;
+    width: 100%;
 }
 
 .timeline::before {
@@ -224,7 +244,7 @@ section {
     box-shadow: 0 5px 15px rgba(0, 212, 255, 0.1);
 }
 
-.skill-item i{
+.skill-item i {
     color: var(--accent);
     font-size: 1.1rem;
     width: 20px;
@@ -235,54 +255,7 @@ section {
     font-size: 0.95rem;
 }
 
-/* === NUEVOS ESTILOS PARA EL LAYOUT INVERTIDO === */
-.cv-container {
-    align-items: flex-start;
-    display: flex;
-    gap: 20px;
-    max-width: 1200px;
-    margin-top: 20px;
-    flex-direction: row-reverse; /* Línea clave para invertir */
-}
-
-.timeline {
-    flex: 2; /* Ocupa 66% del espacio */
-    position: relative;
-    padding: 20px 0;
-}
-
-.skills-panel {
-    flex: 1; /* Ocupa 33% del espacio */
-    width: 30%;
-    height: fit-content;
-    padding: 1.5rem;
-    position: sticky;
-    top: 20px;
-    align-self: flex-start;
-    background: rgba(26, 26, 26, 0.8);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(106, 17, 203, 0.3);
-}
-
-/*responsive*/
-@media (max-width: 768px) {
-    .cv-container {
-        flex-direction: column;
-    }
-    .skills-panel {
-        position: static;
-        width: 100%;
-        order: 2; /* Habilidades abajo en móviles */
-    }
-    .timeline {
-        order: 1;
-    }
-    .timeline::before {
-        left: 20px;
-    }
-}
-
-/* Agrega esto a tu style.css */
+/* Timeline bullets */
 .timeline-bullets {
     padding-left: 1.2rem;
     margin-top: 0.8rem;
@@ -309,17 +282,29 @@ section {
     color: var(--accent);
 }
 
-.experience-panel {
-    width: 70%;
-}
-
+/* Responsive */
 @media (max-width: 768px) {
     .cv-container {
         flex-direction: column;
     }
-    .skills-panel,
-    .experience-panel {
-        width: 100%;
+    .skills-panel {
         position: static;
+        order: 2;
+        margin-top: 2rem;
+    }
+    .timeline::before {
+        left: 20px;
+    }
+}
+
+.profession {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.5s ease-out 1s forwards;
+}
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
